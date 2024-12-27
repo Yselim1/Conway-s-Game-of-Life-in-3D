@@ -1,1 +1,29 @@
+# Unity-generated folders
 /Library/
+/Temp/
+/Obj/
+/Build/
+/Builds/
+/Logs/
+/UserSettings/
+
+# User-specific files
+*.swp
+*.suo
+*.user
+*.userprefs
+*.pidb
+
+# IDE and editor settings
+.vs/
+.idea/
+.vscode/
+
+# Unity project-specific files
+*.meta
+
+# Build output and binaries
+*.apk
+*.exe
+*.dll
+
