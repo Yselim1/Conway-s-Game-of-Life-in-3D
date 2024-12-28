@@ -1,0 +1,6 @@
+// 3D Game of Life Oscillator Pattern
+// Format: x,y,z (one coordinate set per line)
+0,0,7
+0,0,8
+0,1,7
+1,0,7

@@ -25,12 +25,10 @@ public class GameOfLife3D : MonoBehaviour
     {
         DebugWindow.Log("Game Starting...");
         grid = new bool[gridSizeX, gridSizeY, gridSizeZ];
-        RandomizeGrid();
-        InvokeRepeating("UpdateGrid", 0f, 1.5f);
     }
 
     // Randomizes the initial grid state
-    void RandomizeGrid()
+    public void RandomizeGrid()
     {
         DebugWindow.Clear();  // Clear previous messages
         DebugWindow.Log("=== INITIAL GRID STATE ===");
@@ -265,6 +263,145 @@ public class GameOfLife3D : MonoBehaviour
             {
                 DebugWindow.Show();  // Add this method to DebugWindow class
             }
+        }
+    }
+
+    public void SetCellState(int x, int y, int z, bool state)
+    {
+        if (x >= 0 && x < gridSizeX && y >= 0 && y < gridSizeY && z >= 0 && z < gridSizeZ)
+        {
+            grid[x, y, z] = state;
+        }
+    }
+
+    public void ClearGrid()
+    {
+        for (int x = 0; x < gridSizeX; x++)
+        {
+            for (int y = 0; y < gridSizeY; y++)
+            {
+                for (int z = 0; z < gridSizeZ; z++)
+                {
+                    grid[x, y, z] = false;
+                }
+            }
+        }
+        UpdateGridDisplay();
+    }
+
+    // Add method to start simulation
+    public void StartSimulation()
+    {
+        InvokeRepeating("UpdateGrid", 0f, 1f);
+    }
+
+    // Add method to stop simulation
+    public void StopSimulation()
+    {
+        CancelInvoke("UpdateGrid");
+    }
+
+    // Add method to manually set up a pattern
+    public void SetupPattern(Vector3Int[] aliveCells)
+    {
+        ClearGrid();
+        foreach (Vector3Int cell in aliveCells)
+        {
+            SetCellState(cell.x, cell.y, cell.z, true);
+        }
+        UpdateGridDisplay();
+        DebugWindow.Log("Manual pattern setup complete");
+    }
+
+    public void LoadPatternFromFile(string filePath)
+    {
+        try
+        {
+            ClearGrid();
+            string[] lines = System.IO.File.ReadAllLines(filePath);
+            int validCells = 0;
+            
+            DebugWindow.Log($"Loading pattern from: {System.IO.Path.GetFileName(filePath)}");
+            
+            foreach (string line in lines)
+            {
+                // Skip empty lines and comments
+                if (string.IsNullOrWhiteSpace(line) || line.StartsWith("//"))
+                    continue;
+
+                string[] coords = line.Split(',');
+                if (coords.Length == 3)
+                {
+                    if (int.TryParse(coords[0], out int x) &&
+                        int.TryParse(coords[1], out int y) &&
+                        int.TryParse(coords[2], out int z))
+                    {
+                        if (x >= 0 && x < gridSizeX &&
+                            y >= 0 && y < gridSizeY &&
+                            z >= 0 && z < gridSizeZ)
+                        {
+                            SetCellState(x, y, z, true);
+                            validCells++;
+                        }
+                        else
+                        {
+                            DebugWindow.Log($"Warning: Coordinates out of range: {line}");
+                        }
+                    }
+                    else
+                    {
+                        DebugWindow.Log($"Warning: Invalid coordinate format: {line}");
+                    }
+                }
+            }
+            
+            UpdateGridDisplay();
+            DebugWindow.Log($"Pattern loaded successfully: {validCells} cells placed");
+        }
+        catch (System.Exception e)
+        {
+            DebugWindow.Log($"Error loading pattern: {e.Message}");
+            throw;
+        }
+    }
+
+    void Update()
+    {
+        if (Input.GetMouseButtonDown(0) || Input.GetMouseButtonDown(1)) // Left or right click
+        {
+            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+            RaycastHit hit;
+            
+            if (Physics.Raycast(ray, out hit))
+            {
+                Vector3 localPos = transform.InverseTransformPoint(hit.point);
+                int x = Mathf.FloorToInt(localPos.x / cellSpacing);
+                int y = Mathf.FloorToInt(localPos.y / cellSpacing);
+                int z = Mathf.FloorToInt(localPos.z / cellSpacing);
+                
+                if (x >= 0 && x < gridSizeX && y >= 0 && y < gridSizeY && z >= 0 && z < gridSizeZ)
+                {
+                    SetCellState(x, y, z, Input.GetMouseButtonDown(0));
+                    UpdateGridDisplay();
+                }
+            }
+        }
+    }
+
+    public void EnterCoordinatesMode()
+    {
+        Debug.Log("Enter coordinates in format 'x,y,z' or 'done' to finish");
+        // Implementation would need UI input field
+    }
+
+    public void SetInitialState(bool[,,] initialState)
+    {
+        if (initialState.GetLength(0) == gridSizeX && 
+            initialState.GetLength(1) == gridSizeY && 
+            initialState.GetLength(2) == gridSizeZ)
+        {
+            grid = initialState;
+            UpdateGridDisplay();
         }
     }
 }

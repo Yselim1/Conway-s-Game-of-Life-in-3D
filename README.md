@@ -1,73 +1,214 @@
-# Experiment: 3D Conway's Game of Life
+# Experiments: 3D Conway's Game of Life
 
-This document describes an experiment conducted on a 3D implementation of Conway's Game of Life. The results of the simulation, based on a random initial state, are detailed below along with observations.
-
-## Initial Setup
-- **Grid Size**: \(10 	times 10 	times 10\) (1000 cells total).
-- **Initial State**: Randomly seeded with 53 alive cells and 947 dead cells.
+This document describes three experiments conducted on a 3D implementation of Conway's Game of Life, exploring both random and predefined initial states.
 
 ## Rules Used
 - **Birth Rule**: A dead cell becomes alive if it has exactly 4 alive neighbors.
 - **Survival Rule**: A live cell stays alive if it has 5 to 6 alive neighbors.
 - **Death Rule**: All other cells become or remain dead.
 
-## Observations
-The experiment began with the random seeding of the grid. The simulation was run for several generations. Here are the results:
+
+
+
+## Experiment 1: Random Initial State
+### Initial Setup
+- **Grid Size**: 10 × 10 × 10 (1000 cells total)
+- **Initial State**: Randomly seeded with 53 alive cells and 947 dead cells
 
 ### Generations Overview
 1. **Initial State**:
    - **Alive Cells**: 53
    - **Dead Cells**: 947
    
-   ![Initial State Screenshot](screenshots/initial_state.png)
-
-
-
+   ![Initial State Screenshot](screenshots/OscillatorWithRandomGrid/initial_state.png)
 
 2. **Generation 2**:
    - **Alive Cells**: 12
    - **Dead Cells**: 988
    
-   ![Generation 2 Screenshot](screenshots/generation_2.png)
+   ![Generation 2 Screenshot](screenshots/OscillatorWithRandomGrid/generation_2.png)
 
 3. **Generation 3**:
    - **Alive Cells**: 4
    - **Dead Cells**: 996
    
-   ![Generation 3 Screenshot](screenshots/generation_3.png)
+   ![Generation 3 Screenshot](screenshots/OscillatorWithRandomGrid/generation_3.png)
 
 4. **Generation 4**:
    - **Alive Cells**: 4
    - **Dead Cells**: 996
    
-   ![Generation 4 Screenshot](screenshots/generation_4.png)
+   ![Generation 4 Screenshot](screenshots/OscillatorWithRandomGrid/generation_4.png)
 
 5. **Steady Oscillation**:
-   - After Generation 4, the system oscillates between Generation 3 and Generation 4, with the state fluctuating without significant changes in the number of alive cells.
+   - After Generation 4, the system oscillates between Generation 3 and Generation 4
    
-   ![Oscillating State Screenshot](screenshots/oscillation_state.png)
+   ![Oscillating State Screenshot](screenshots/OscillatorWithRandomGrid/oscillation_state.png)
 
-## Analysis
+### Analysis
 1. **Rapid Decline**:
-   - The number of alive cells sharply decreased in the first few generations, likely due to sparse initial seeding and strict survival rules.
+   - Sharp decrease in alive cells in first few generations
+   - Sparse initial seeding led to quick population reduction
 
 2. **Stabilization**:
-   - After reaching a low count, the system stabilized into a periodic oscillation between two states with 3 and 4 alive cells.
+   - System stabilized into periodic oscillation
+   - Maintained consistent cell count in oscillating state
 
-3. **Patterns**:
-   - The surviving cells form small, isolated clusters that cannot grow or interact significantly due to the surrounding dead cells and lack of neighbors.
+
+
+## Experiment 2: Predefined Initial State - Oscillating Pattern
+### Initial Setup
+- **Grid Size**: 10 × 10 × 10 (1000 cells total)
+- **Initial State**: Predefined pattern with specific cell configurations
+
+### Initial Pattern Configuration
+## Pattern Files
+Initial patterns can be found in the [/Patterns](/GameOfLife3D/Assests/Patterns) directory:
+- [oscillator.txt](/Patterns/stable_oscillator.txt)
+
+
+### Generations Overview
+1. **Initial State**:
+   - **Alive Cells**: 11
+   - **Dead Cells**: 989
+   
+   ![Initial State Screenshot](screenshots/OscillatorWithPredefinedGrid/initial_state.png)
+
+2. **Generation 2**:
+   - **Alive Cells**: 11
+   - **Dead Cells**: 989
+   
+   ![Generation 2 Screenshot](screenshots/OscillatorWithPredefinedGrid/generation_2.png)
+
+3. **Generation 3**:
+   - **Alive Cells**: 5
+   - **Dead Cells**: 995
+   
+   ![Generation 3 Screenshot](screenshots/OscillatorWithPredefinedGrid/generation_3.png)
+
+4. **Generation 4**:
+   - **Alive Cells**: 5
+   - **Dead Cells**: 995
+   
+   ![Generation 4 Screenshot](screenshots/OscillatorWithPredefinedGrid/generation_4.png)
+
+5. **Steady Oscillation**:
+   - After Generation 4, the system oscillates between Generation 3 and Generation 4
+   
+   ![Oscillating State Screenshot](screenshots/OscillatorWithPredefinedGrid/oscillator_starts.png)
+
+### Analysis
+1. **Pattern Evolution**:
+   - Predictable evolution from initial state
+   - Maintained structural coherence
+
+2. **Stability**:
+   - Quick stabilization into oscillating pattern
+   - Consistent behavior after stabilization
+
+## Experiment 3: Cross Pattern Evolution
+### Initial Setup
+- **Grid Size**: 10 × 10 × 10 (1000 cells total)
+- **Initial State**: Predefined cross pattern configuration
+
+### Initial Cross Pattern Configuration
+
+## Pattern Files
+Initial patterns can be found in the [/Patterns](/GameOfLife3D/Assests/Patterns) directory:
+- [cross_pattern.txt](/Patterns/cross_pattern.txt)
+
+### Generations Overview
+1. **Initial State**:
+   - **Alive Cells**: 15
+   - **Dead Cells**: 985
+   
+   ![Initial State Screenshot](screenshots/CrossPattern/initial_state.png)
+
+2. **Generation 2**:
+   - **Alive Cells**: 4
+   - **Dead Cells**: 996
+   
+   ![Generation 2 Screenshot](screenshots/CrossPattern/generation_2.png)
+
+3. **Generation 3**:
+   - **Alive Cells**: 3
+   - **Dead Cells**: 997
+   
+   ![Generation 3 Screenshot](screenshots/CrossPattern/generation_3.png)
+
+4. **Generation 4**:
+   - After Generation 3, the system oscillates between Generation 3 and Generation 4
+   - **Alive Cells**: 0
+   - **Dead Cells**: 1000
+   
+   ![Generation 4 Screenshot](screenshots/CrossPattern/generation_4.png)
+
+
+### Analysis
+1. **Pattern Evolution**:
+   - Finite lifespan of 3 generations
+   - Systematic decay pattern
+   - Preserved symmetry during decay
+
+## Comparative Analysis
+### Pattern Longevity
+1. **Random Initial State**:
+   - Achieved stable oscillation
+   - Indefinite survival through oscillation
+
+2. **First Predefined Pattern**:
+   - Stable oscillation between two states
+   - Maintained structural integrity
+
+3. **Cross Pattern**:
+   - Limited lifespan
+   - Complete extinction after 3 generations
+
+### Behavioral Characteristics
+1. **Random Pattern**:
+   - Unpredictable initial evolution
+   - Eventually stabilized
+
+2. **First Predefined Pattern**:
+   - Predictable evolution
+   - Consistent oscillation
+
+3. **Cross Pattern**:
+   - Predictable decay
+   - Symmetric dissolution
 
 ## Conclusions
-- The observed dynamics suggest that the initial density of alive cells significantly impacts the long-term behavior of the system.
-- Rule sets for 3D Conway's Game of Life may require fine-tuning to achieve sustained growth or diverse patterns.
-- Further experiments with higher initial densities or different rules could yield more varied and interesting results.
+1. **Initial Configuration Impact**:
+   - Determines pattern longevity
+   - Influences stability characteristics
+   - Affects evolutionary predictability
 
-## Suggestions for Future Experiments
-- **Increase Initial Density**: Use 20-30% alive cells in the initial state.
-- **Test Alternative Rules**: Experiment with less strict survival and birth conditions.
-- **Boundary Conditions**: Consider toroidal wrapping to allow patterns to interact across edges.
+2. **Pattern Behavior**:
+   - Symmetric patterns maintain symmetry during evolution
+   - Different initial states lead to distinct outcomes
+   - System tends toward either oscillation or extinction
+
+3. **System Characteristics**:
+   - Strong tendency toward oscillation or extinction
+   - Strict rules create challenging survival conditions
+   - Pattern symmetry influences evolution
+
+## Future Research Directions
+1. **Pattern Design**:
+   - Explore more symmetric configurations
+   - Study relationship between symmetry and longevity
+   - Investigate hybrid pattern designs
+
+2. **Rule Modifications**:
+   - Test variations in neighbor thresholds
+   - Explore different survival conditions
+   - Study impact of rule modifications
+
+3. **Analysis Methods**:
+   - Develop pattern prediction tools
+   - Study long-term behavior patterns
+   - Analyze pattern transformation mechanics
 
 ---
 
 Prepared as part of the 3D Conway's Game of Life Project.
-
