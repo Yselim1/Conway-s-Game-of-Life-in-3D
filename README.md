@@ -63,9 +63,8 @@ This document describes three experiments conducted on a 3D implementation of Co
 
 ### Initial Pattern Configuration
 ## Pattern Files
-Initial patterns can be found in the [/Patterns](/GameOfLife3D/Assests/Patterns) directory:
-- [oscillator.txt](/Patterns/stable_oscillator.txt)
-
+Initial patterns can be found in the [/Patterns](GameOfLife3D/Assets/Patterns) directory:
+- [oscillator.txt](GameOfLife3D/Assets/Patterns/stable_oscillator.txt)
 
 ### Generations Overview
 1. **Initial State**:
@@ -114,8 +113,8 @@ Initial patterns can be found in the [/Patterns](/GameOfLife3D/Assests/Patterns)
 ### Initial Cross Pattern Configuration
 
 ## Pattern Files
-Initial patterns can be found in the [/Patterns](/GameOfLife3D/Assests/Patterns) directory:
-- [cross_pattern.txt](/Patterns/cross_pattern.txt)
+Initial patterns can be found in the [/Patterns](GameOfLife3D/Assets/Patterns) directory:
+- [cross_pattern.txt](GameOfLife3D/Assets/Patterns/cross_pattern.txt)
 
 ### Generations Overview
 1. **Initial State**:
